@@ -1,0 +1,26 @@
+
+
+/*.inner {
+	height:100px;
+	background-color: #2f35ff;
+	border: 2px solid #f2123f;
+	width:20%;
+	display: inline-block;
+	/*float:left;
+}*/
+
+.inner_two {
+	margin-left:30%;
+	height:100px;
+	background-color: #2345ff;
+	border: 2px solid #fff23f;
+	width:60%;
+	/*display: inline-block;*/
+	/*float:left;*/
+}
+
+
+.outer {
+	border: 2px solid #23234a;
+	align-content: right;
+}

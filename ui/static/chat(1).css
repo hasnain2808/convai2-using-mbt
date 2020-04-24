@@ -1,0 +1,262 @@
+body {
+	font-family: sans-serif !important;
+}
+
+.bg-funky	{
+	background: rgb(155,149,245);
+	background: radial-gradient(circle, rgba(155,149,245,1) 0%, rgba(11,154,177,1) 44%, rgba(167,240,247,1) 100%);
+}
+
+.container {
+	/*width: 500px;*/
+	/*padding-left: 300px;*/
+	padding-top:100px;
+	/*background: rgb(155,149,245);
+	background: radial-gradient(circle, rgba(155,149,245,1) 0%, rgba(11,154,177,1) 44%, rgba(167,240,247,1) 100%);*/
+}
+
+.heading {
+	color: #111122;
+	margin:30px;
+	font-weight: 600;
+}
+
+img {
+	/*border:2px solid #fff;*/
+	max-width: 70%;
+	padding:5px;
+	display:inline-block;
+	margin-top:20px;
+}
+
+/*.messaging{
+	background-color:red;
+	background: rgb(155,149,245);
+	background: radial-gradient(circle, rgba(155,149,245,1) 0%, rgba(11,154,177,1) 44%, rgba(167,240,247,1) 100%);
+}*/
+
+/*the whole message box*/
+.inbox_msg {
+	background:rgba(155,149,245,0.1);
+	border: 2px solid #fff;
+	clear: both;
+	overflow: hidden;
+}
+
+.should_wrap{
+	/*border: 2px solid #4f4;*/
+	margin-top: 20px;
+}
+
+.outgoing_msg{
+	/*border: 2px solid #fff;*/
+	overflow: none;
+	margin:26px 0 26px;
+	width:100%;
+}
+
+/*.top_spac{ 
+	margin: 20px 0 0;
+}*/
+
+.recent_heading {
+	float: left; 
+	width:40%;
+	color: #05728f;
+	font-size: 21px;
+	margin: auto;
+}
+
+/*.headind_srch{ 
+	padding:10px 29px 10px 20px; 
+	overflow:hidden; 
+	border-bottom:1px solid #c4c4c4;
+}*/
+
+/*.recent_heading h4 {
+		  color: #05728f;
+		  font-size: 21px;
+		  margin: auto;
+		}
+*/
+/*.chat_ib h5{ 
+	font-size:15px; 
+	color:#464646; 
+	margin:0 0 8px 0;
+}*/
+
+/*.chat_ib h5 span{ 
+	font-size:13px; 
+	float:right;
+}*/
+/*
+.chat_ib p{ 
+	font-size:14px; 
+	color:#989898;
+	 margin:auto
+	}*/
+
+/*.chat_img {
+	float: left;
+	width: 11%;
+}*/
+
+/*.chat_ib {
+	float: left;
+	padding: 0 0 0 15px;
+	width: 88%;
+}
+*/
+/*.chat_people{ 
+	overflow:hidden; 
+	clear:both;
+}*/
+
+/*.chat_list {
+	border-bottom: 1px solid #c4c4c4;
+	margin: 0;
+	padding: 18px 16px 10px;
+}
+*/
+/*.inbox_chat { 
+	height: 550px; 
+	overflow-y:scroll;
+}
+*/
+/*.active_chat{ 
+	background:#ebebeb;
+}
+*/
+.incoming_msg_img {
+	display: inline-block;
+	width: 6%;
+}
+		
+.received_msg {
+	margin-top: 20px;
+	display: inline-block;
+	padding: 0 0 0 10px;
+	vertical-align: top;
+	width: 92%;
+}
+
+ .received_withd_msg p {
+	background: #e4e8fb none repeat scroll 0 0;
+	border-radius: 3px;
+	color: #646464;
+	font-size: 14px;
+	margin: 0;
+	padding: 5px 10px 5px 12px;
+	width: 70%;
+}
+
+/*.time_date {
+	color: #747474;
+	display: block;
+	font-size: 10px;
+	margin: 3px 0 0;
+}*/
+/*.received_withd_msg { 
+	width: 70%;
+}*/
+
+.mesgs {
+	float: left;
+	padding: 40px;
+	opacity:1;
+}
+
+
+.sent_msg p {
+	/*border: 2px solid #333;*/
+	background: #3F51B5 none repeat scroll 0 0;
+	border-radius: 3px;
+	font-size: 14px;
+	margin: 0; 
+	color:#fff;
+	padding: 5px 10px 5px 12px;
+}
+
+.sent_msg {
+	/*float : right;*/
+	margin-left:30%;
+	width: 70%;
+	text-align: right;
+}
+
+/*.input_msg_write input {
+	background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	border: medium none;
+	color: #4c4c4c;
+	font-size: 15px;
+	min-height: 48px;
+	width: 100%;
+}*/
+
+/*.type_msg {
+	border-top: 1px solid #c4c4c4;
+	position: relative;
+}*/
+
+.messaging { 
+	background: #fff;
+}
+
+.msg_history {
+	max-height: 516px;
+	overflow-y: auto;
+	opacity: 1;
+}
+
+/*.credit {
+	margin-bottom: 20px;
+	margin-top: 20px;
+}*/
+
+/*.credit a {
+	color: #fff;
+	font-weight: 300;
+	letter-spacing: 2px;
+	border-bottom: dotted 1px;
+}*/
+
+.type_here {
+	margin-top:50px;
+	overflow: hidden;
+}
+
+input{
+	resize:none;
+	overflow:hidden;
+	border-radius:5px;
+	width: 950px;
+	display:inline-block;
+}
+
+.msg_send_btn {
+	background: #05728f none repeat scroll 0 0;
+	border: medium none;
+	border-radius: 2px
+	color: #fff;
+	cursor: pointer;
+	font-size: 5pxpx;
+	height: 33px;
+	/*position: absolute;*/
+	float:right;
+	right: 0;
+	/*top: 10px;*/
+	/*width: 33px;*/
+	margin-top:5px;
+	display:inline-block;
+}
+
+.btn-primary {
+	margin-top:50px;
+	/*width:200px;*/
+	float: right;
+	text-align:center;
+}
+
+/*form {
+	overflow: none;
+}*/

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/chat.css">
+  </head>
+  <body class="bg-funky">
+
+   <script type="text/javascript">
+    
+    // var overlay = document.getElementById("overlay");
+    
+    
+      // var r = document.getElementById('typebox');
+      var speechRecognizer = new webkitSpeechRecognition();// a new speech recognition object
+      var finalTranscripts = ''
+      //function to start listening to voice and then convert it to text
+      function startConverting () {
+
+        if('webkitSpeechRecognition' in window){
+          
+          speechRecognizer.continuous = true;
+          speechRecognizer.interimResults = true;
+          speechRecognizer.lang = 'en-IN';
+          speechRecognizer.start();
+          
+          
+          speechRecognizer.onresult = function(event){
+            var interimTranscripts = '';
+            for(var i = event.resultIndex; i < event.results.length; i++){
+              var transcript = event.results[i][0].transcript;
+              transcript.replace("\n", "<br>");
+              if(event.results[i].isFinal){
+                finalTranscripts += transcript;
+                console.log(finalTranscripts);
+
+              }else{
+                interimTranscripts += transcript;
+              }
+            }
+
+            document.getElementById('typebox').innerHTML = finalTranscripts + interimTranscripts;
+            // document.querySelector('body').innerHTML = finalTranscripts + '<i style="color:#ddd;">' + interimTranscripts + '</>';
+
+            };
+          speechRecognizer.onerror = function (event) {
+          };
+
+        }else{
+          r.innerHTML = 'No browser support. Please upgrade your browser';
+        }
+      }
+      
+      
+      function Clear(){
+      
+      console.log("clear");
+        r.value = "";
+        finalTranscripts = '';
+      
+      }
+      
+      //function to stop listening
+      function stopConverting()
+      {
+
+        speechRecognizer.stop();
+        Clear();
+        
+      }
+
+      function post () {
+      var message = document.querySelector('textarea').value;
+      // var uname = document.querySelector('input').value;
+      
+      // if(document.querySelector('p').value == null) {
+      //  document.querySelector('p').innerHTML = "<b>" + uname + "</b>" + ":" + message; 
+      // }
+
+      // else {
+        // if (uname == 'ironman') {
+        // var container = document.getElementById('blue');
+        // var newElement = document.createElement('p');
+        // newElement.innerHTML = "<b>" + uname + "</b>" + ":" + message;
+        // container.appendChild(newElement);}
+        var containerTwo = document.getElementById('blue');
+          var newElementTwo = document.createElement('div');
+
+        
+          
+          newElementTwo.style.cssText = 'background: #3F51B5 none repeat scroll 0 0;border-radius: 3px;font-size: 14px;margin: 0; margin-top:10px;color:#fff;padding: 5px 10px 5px 12px;margin-left:30%;width: 70%;text-align: right;';
+          newElementTwo.innerHTML = message;
+          
+        
+
+        // else if(uname == 'ca'){
+        //   // var containerIn = document.getElementById('gray');
+        //   // var newElementIn = document.createElement('div');
+        //   newElementTwo.style.cssText = 'margin-top:10px; background: #e4e8fb none repeat scroll 0 0;border-radius: 3px;color: #646464;font-size: 14px;margin: 0;margin-top: 10px;padding: 5px 10px 5px 12px;width: 70%;display: inline-block;padding: 0 0 0 10px;vertical-align: top;width: 92%;'
+        //   newElementTwo.innerHTML = "<b>" + uname + "</b>" + ":" + message;
+        //   // containerIn.appendChild(newElementIn);
+        // }
+        // while(newElement.firstChild) {
+        //  container.appendChild(newElement.firstChild);
+        // }
+      //}
+
+      containerTwo.appendChild(newElementTwo);
+      document.querySelector('textarea').value = "";
+      // document.querySelector('input').value = "";
+
+      var elementToScroll = document.getElementById('containmentID');
+        elementToScroll.scrollTop = elementToScroll.scrollHeight - elementToScroll.clientHeight;
+
+        
+}
+    </script>
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- <h3 class="heading text-center">Chat Bubble</h3> -->
+          <!-- <div class="messaging"> -->
+            <div class="inbox_msg">
+              <!-- <div class="mesgs"> -->
+                <!-- <div class="msg_history"> -->
+
+                <!-- contins the messaging window. Do Not Remove! -->
+                <div class="containment" id="containmentID">
+
+
+
+
+
+
+
+                  <!-- trial data. to be removed when actual data is available -->
+
+                  <div class="incoming_msg">
+                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="received_msg">
+                      <div class="received_withd_msg">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <!--     <span class="time_date"> 11:01 AM    |    June 9</span> -->
+                      </div>
+                    </div>
+                  </div>
+
+
+                    <div class = "should_wrap">
+                      <!-- <div class="outgoing_msg"> -->
+                        <div class="sent_msg">
+                          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+                          <!--   <span class="time_date"> 11:01 AM    |    June 9</span>  -->
+                        </div>
+                      <!-- </div> -->
+                    </div>
+
+                    <div class="incoming_msg">
+                      <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                      <div class="received_msg">
+                        <div class="received_withd_msg">
+                          <p>Test, which is a new approach to have</p>
+<!--                             <span class="time_date"> 11:01 AM    |    Yesterday</span> -->
+                        </div>
+                      </div>
+                    </div>
+
+
+                  <div class="outgoing_msg">
+                    <div class="sent_msg">
+                      <p>Apollo University, Delhi, India Test</p>
+<!--                       <span class="time_date"> 11:01 AM    |    Today</span>  -->
+                    </div>
+                  </div>
+
+
+                  <div class="incoming_msg">
+                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                    <div class="received_msg">
+                      <div class="received_withd_msg">
+                        <p>We work directly with our designers and suppliers, and sell direct to you, which means quality, exclusive products, at a price anyone can afford.</p>
+                      <!--   <span class="time_date"> 11:01 AM    |    Today</span> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- trial data ending -->
+
+
+
+
+
+
+
+                  <!-- user's message will be added using this div -->
+                    <div class="outgoing_msg">
+                        <div  class="sent_msg" 
+                            id="sent_msgs" >
+                            <p  id='blue'>
+                          <!-- Apollo University, Delhi, India Test -->
+                        </p>
+                      <!-- <span class="time_date"> 11:01 AM    |    Today</span>  -->
+                      </div>
+                  </div>
+
+
+
+
+
+
+
+
+                <!-- textbar and send button -->
+                </div>
+                  <div class="type_here">
+                    <form method="post" action="{{ url_for('home') }}">
+                      <textarea id = "typebox" type="text" name="textdata" placeholder="type here"></textarea>
+                      <!-- <input type="submit"> -->
+                      <div class="send msg_send_btn btn btn-danger" onclick='post();'>send</div>
+                    </form>
+
+                  </div>
+
+
+                <!-- </div> -->
+              <!-- </div> -->
+            </div>
+
+
+
+
+
+
+
+
+            <!-- mic start button -->
+            <div class="mic">
+              <!-- <span class="glyphicon glyphicon-headphones"></span> -->
+              <button class="btn btn-primary col-lg-3" id="stop" onclick="stopConverting();">Stop</button>
+              <button class="btn btn-primary col-lg-3" id = "speak" onclick="startConverting();">Speak</button>
+            </div>
+          </div>
+
+
+        </div>
+        <!-- <div class="credit text-center">
+          <a href="https://rakeshmandal.com" target="_blank">By RaKesh Mandal</a>
+        </div> -->
+      </div>
+  </body>
+</html>

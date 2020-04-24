@@ -1,0 +1,18 @@
+sudo apt-get install -y g++ 
+sudo apt-get install -y autoconf automake libtool
+sudo apt-get install -y autoconf-archive
+sudo apt-get install -y pkg-config
+sudo apt-get install -y libpng-dev
+sudo apt-get install -y libjpeg8-dev
+sudo apt-get install -y libtiff5-dev
+sudo apt-get install -y zlib1g-dev
+
+
+apt-get install -y libicu-dev
+apt-get install -y libpango1.0-dev
+apt-get install -y libcairo2-dev
+
+sudo add-apt-repository -y ppa:alex-p/tesseract-ocr 
+sudo apt-get update 
+sudo apt-get install -y libleptonica-dev 
+sudo ldconfig
