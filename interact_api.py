@@ -19,6 +19,8 @@ from utils import get_dataset_personalities, download_pretrained_model
 
 import flask
 from flask import request, jsonify
+from itertools import chain
+
 
 app = flask.Flask(__name__)
 
@@ -187,7 +189,8 @@ def home():
     global history
     if 'input_dialogue' in request.args:
         raw_text = str(request.args['input_dialogue'])
-
+    print(raw_text)
+    raw_text = ' '.join(raw_text.split('+'))
     # while True:
     # raw_text = input(">>> ")
     # while not raw_text:
@@ -199,6 +202,7 @@ def home():
     history.append(out_ids)
     history = history[-(2*args.max_history+1):]
     out_text = tokenizer.decode(out_ids, skip_special_tokens=True)
+    print(tokenizer.decode(chain(*history), skip_special_tokens=True))
     print(out_text)
 
     return out_text
