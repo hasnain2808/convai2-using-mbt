@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,27 +15,33 @@
   <link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
 
-function send_message() {
-  inp = document.getElementById('inp');
-  text = inp.value;
-  inp.value = "";
+    function send_message() {
+      inp = document.getElementById('inp');
+      text = inp.value;
+      inp.value = "";
 
-  var innerdiv = document.createElement('div');
-  innerdiv.className = 'direct-chat-text';
-  innerdiv.innerHTML = text
+      var innerdiv = document.createElement('div');
+      innerdiv.className = 'direct-chat-text';
+      innerdiv.innerHTML = text
 
-  var div = document.createElement('div');
-  div.className = 'direct-chat-msg';
-  div.appendChild(innerdiv)
+      var div = document.createElement('div');
+      div.className = 'direct-chat-msg';
+      div.appendChild(innerdiv)
 
-  document.getElementById("chatbox").appendChild(div)
+      document.getElementById("chatbox").appendChild(div)
 
-  $.get("/new_message", {input_dialogue: text} , function(data){
+      $.get("/new_message", { input_dialogue: text }, function (data) {
         // alert(data);
 
         var innerdiv = document.createElement('div');
+        
         innerdiv.className = 'direct-chat-text';
         innerdiv.innerHTML = data
 
@@ -43,93 +50,176 @@ function send_message() {
         div.appendChild(innerdiv)
         document.getElementById("chatbox").appendChild(div)
 
+        var msg = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices();
+        //msg.voice = voices[$('#voices').val()];
+        //msg.rate = $('#rate').val() / 10;
+        //msg.pitch = $('#pitch').val();
+        msg.text = data;
+
+        msg.onend = function(e) {
+          console.log('Finished in ' + event.elapsedTime + ' seconds.');
+        };
+
+        speechSynthesis.speak(msg);
+
+      });
 
 
-        });
+    }
+    
+    var speechRecognizer = new webkitSpeechRecognition();// a new speech recognition object
+    var finalTranscripts = ''
+    //function to start listening to voice and then convert it to text
 
-}
+    function startConverting() {
+
+      if ('webkitSpeechRecognition' in window) {
+
+        speechRecognizer.continuous = true;
+        speechRecognizer.interimResults = true;
+        speechRecognizer.lang = 'en-IN';
+        speechRecognizer.start();
+
+
+        speechRecognizer.onresult = function (event) {
+          var interimTranscripts = '';
+          for (var i = event.resultIndex; i < event.results.length; i++) {
+            var transcript = event.results[i][0].transcript;
+            transcript.replace("\n", "<br>");
+            if (event.results[i].isFinal) {
+              finalTranscripts += transcript;
+              console.log(finalTranscripts);
+
+            } else {
+              interimTranscripts += transcript;
+            }
+          }
+
+          document.getElementById('typebox').innerHTML = finalTranscripts + interimTranscripts;
+          // document.querySelector('body').innerHTML = finalTranscripts + '<i style="color:#ddd;">' + interimTranscripts + '</>';
+
+        };
+        speechRecognizer.onerror = function (event) {
+        };
+
+      } else {
+        r.innerHTML = 'No browser support. Please upgrade your browser';
+      }
+    }
+
+    function stopConverting()
+      {
+
+        speechRecognizer.stop();
+        
+      }
+
+
 
   </script>
 </head>
+
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+  <div class="wrapper">
 
 
-  <!-- Main Sidebar Container -->
+    <!-- Main Sidebar Container -->
 
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-
-
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
 
 
 
-        <div class="row">
 
-          <div class="col-md-3">
-            <!-- DIRECT CHAT SUCCESS -->
-            <div class="card card-sucress cardutline direct-chat direct-chat-success">
-              <div class="card-header">
-                <h3 class="card-title">Direct Chat</h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-                  </button>
+          <div class="row">
+
+            <div class="col-md-6">
+              <!-- DIRECT CHAT SUCCESS -->
+              <div class="card card-sucress cardutline direct-chat direct-chat-success">
+                <div class="card-header">
+                  <h3 class="card-title">Direct Chat</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages" id = "chatbox">
-                  <!-- Message. Default to the left -->
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages" id="chatbox">
+                    <!-- Message. Default to the left -->
 
-                  <!-- /.direct-chat-msg -->
+                    <!-- /.direct-chat-msg -->
+                  </div>
+                  <!--/.direct-chat-messages-->
+
+
                 </div>
-                <!--/.direct-chat-messages-->
-
-
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
+                <!-- /.card-body -->
+                <div class="card-footer">
                   <div class="input-group">
                     <input type="text" name="message" placeholder="Type Message ..." class="form-control" id="inp">
                     <span class="input-group-append">
-                      <button  class="btn btn-success"onclick="send_message()">Send</button>
+                      <button class="btn btn-success" onclick="send_message()">Send</button>
                     </span>
+                    
                   </div>
+                  <div class="input-group">
+                    <textarea   placeholder="Type Message ..." class="form-control" id="typebox">
+                    </textarea>              
+
+                    <!-- button for mic -->
+                    <span class="input-group-append">
+                      <button class="btn btn-success" onclick="startConverting();" id="speak">Speak</button>
+                    </span>
+
+                    <!-- button for stop -->
+                    <span class="input-group-append">
+                      <button class="btn btn-success" onclick="stopConverting();" id="stop">Stop</button>
+                    </span>
+                    <span class="input-group-append">
+                      <button class="btn btn-success" id="speaksys">tts</button>
+                    </span>
+
+                    
+                  </div>
+                </div>
+                <!-- /.card-footer-->
               </div>
-              <!-- /.card-footer-->
+              <!--/.direct-chat -->
             </div>
-            <!--/.direct-chat -->
+            <!-- /.col -->
+
           </div>
-          <!-- /.col -->
+          <!-- /.row -->
 
-        </div>
-        <!-- /.row -->
-
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
 
 
-</div>
-<!-- ./wrapper -->
+    </div>
+    <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="../static/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../static/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../static/dist/js/demo.js"></script>
+    <!-- jQuery -->
+    <script src="../static/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../static/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../static/dist/js/demo.js"></script>
 </body>
+
 </html>
